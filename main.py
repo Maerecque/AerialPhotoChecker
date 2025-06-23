@@ -82,7 +82,7 @@ def get_flights_over_area(center_coordinate: tuple, radius: int, excluded_manufa
 
     Args:
         center_coordinate (tuple): The center coordinate of the area (latitude, longitude). *Expressed in decimal degrees.*
-        radius (int): The radius of the area within which to search for flights, expressed in meters.
+        radius (int): The radius of the area within which to search for flights, expressed in kilometers.
         excluded_manufacturers (list): A list of manufacturers to exclude from the results.
         print_all (bool, optional): Whether to print flight details or not. Defaults to True.
 
@@ -110,7 +110,7 @@ def get_flights_over_area(center_coordinate: tuple, radius: int, excluded_manufa
     flights_over_area = []
 
     # Get geographical bounds based on center coordinate and radius
-    bounds = fr_api.get_bounds_by_point(center_coordinate[0], center_coordinate[1], radius)
+    bounds = fr_api.get_bounds_by_point(center_coordinate[0], center_coordinate[1], radius * 1000)
 
     # Fetch flights within the specified bounds
     flights = fr_api.get_flights(bounds=bounds)
@@ -310,7 +310,7 @@ if __name__ == "__main__":
 
     # Define the center coordinate and radius (in kilometers)
     center_coordinate = (52.089805, 5.1075)  # Coordinaten van Stadplateau 1, Utrecht op DD formaat
-    radius = 20000  # Radius in meters
+    radius = 50  # Radius in kilometers
 
     # List of manufacturers to exclude
     excluded_manufacturers = ["Airbus", "Embraer", "Bombardier", "Boeing"]
